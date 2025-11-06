@@ -2,13 +2,18 @@
 /node_modules
 /public/build
 /public/hot
+/public/fonts
 /public/storage
+/public/css
+/public/js
+/public/**/*.xml
 /storage/*.key
 /storage/pail
 /vendor
 .env
 .DS_Store
 .env.backup
+.env.testing
 .env.production
 .phpactor.json
 .phpunit.result.cache
@@ -23,3 +28,7 @@ yarn-error.log
 /.vscode
 /.zed
 /tmp
+
+**/caddy
+frankenphp
+frankenphp-worker.php

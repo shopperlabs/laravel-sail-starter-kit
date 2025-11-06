@@ -1,0 +1,206 @@
+services:
+    traefik:
+        image: traefik:v3.5
+        command:
+            - '-api.dashboard=true'
+            - '-api.insecure=true'
+            - '-providers.docker=true'
+            - '-providers.docker.exposedbydefault=false'
+            - '-providers.docker.network=traefik'
+            - '-entrypoints.web.address=:80'
+            - '-entrypoints.websecure.address=:443'
+            - '--entrypoints.devtools.address=:8000'
+            - '-serverstransport.insecureskipverify=true'
+        ports:
+            - '80:80'
+            - '443:443'
+            - '8088:8080'
+            - '8000:8000'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock:ro'
+            - 'traefik-letsencrypt:/letsencrypt'
+        networks:
+            - traefik
+            - sail
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.traefik.rule=Host(`traefik.local`)
+            - traefik.http.services.traefik.loadbalancer.server.port=8080
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: development
+            args:
+                WWWUSER: '${WWWUSER}'
+                WWWGROUP: '${WWWGROUP}'
+                NODE_VERSION: 22
+                PHP_VERSION: 8.4
+        image: app/php
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+            SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=frankenphp --host=0.0.0.0 --admin-port=2019 --port='${APP_PORT:-80}'"
+            XDG_CONFIG_HOME: /var/www/html/config
+            XDG_DATA_HOME: /var/www/html/data
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost:${APP_PORT:-8080}/up']
+            timeout: 30s
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+            - traefik
+        depends_on:
+            - traefik
+            - mysql
+            - redis
+            - meilisearch
+            - minio
+            - mailpit
+            - soketi
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.${APP_SERVICE:-app}.rule=Host(`${APP_DOMAIN:-laravel.local}`)
+            - traefik.http.routers.${APP_SERVICE:-app}.entrypoints=websecure
+            - traefik.http.routers.${APP_SERVICE:-app}.tls=true
+            - traefik.http.services.${APP_SERVICE:-app}.loadbalancer.server.port=${APP_PORT:-8080}
+            - traefik.http.routers.${APP_SERVICE:-app}-insecure.rule=Host(`${APP_DOMAIN:-laravel.local}`)
+            - traefik.http.routers.${APP_SERVICE:-app}-insecure.entrypoints=web
+            - traefik.http.routers.${APP_SERVICE:-app}-insecure.middlewares=redirect-to-https
+            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+    mysql:
+        image: 'mysql:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - 'sail-redis:/data'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - redis-cli
+                - ping
+            retries: 3
+            timeout: 5s
+    meilisearch:
+        image: 'getmeili/meilisearch:latest'
+        ports:
+            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+        environment:
+            MEILI_NO_ANALYTICS: '${MEILISEARCH_NO_ANALYTICS:-false}'
+        volumes:
+            - 'sail-meilisearch:/meili_data'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - wget
+                - '--no-verbose'
+                - '--spider'
+                - 'http://127.0.0.1:7700/health'
+            retries: 3
+            timeout: 5s
+    minio:
+        image: 'minio/minio:latest'
+        ports:
+            - '${FORWARD_MINIO_PORT:-9000}:9000'
+            - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+        environment:
+            MINIO_ROOT_USER: sail
+            MINIO_ROOT_PASSWORD: password
+        volumes:
+            - 'sail-minio:/data'
+        networks:
+            - sail
+        command: 'minio server /data --console-address ":8900"'
+        healthcheck:
+            test:
+                - CMD
+                - mc
+                - ready
+                - local
+            retries: 3
+            timeout: 5s
+    mailpit:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - sail
+    soketi:
+        image: 'quay.io/soketi/soketi:latest-16-alpine'
+        environment:
+            SOKETI_DEBUG: '${SOKETI_DEBUG:-1}'
+            SOKETI_METRICS_SERVER_PORT: '9601'
+            SOKETI_DEFAULT_APP_ID: '${PUSHER_APP_ID}'
+            SOKETI_DEFAULT_APP_KEY: '${PUSHER_APP_KEY}'
+            SOKETI_DEFAULT_APP_SECRET: '${PUSHER_APP_SECRET}'
+        ports:
+            - '${PUSHER_PORT:-6001}:6001'
+            - '${PUSHER_METRICS_PORT:-9601}:9601'
+        networks:
+            - sail
+    buggregator:
+        image: ghcr.io/buggregator/server:latest
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.${APP_SERVICE:-app}-buggregator.rule=Host(`${APP_DOMAIN:-laravel.local}`)
+            - traefik.http.routers.${APP_SERVICE:-app}-buggregator.entrypoints=devtools
+            - traefik.http.routers.${APP_SERVICE:-app}-buggregator.tls=true
+            - traefik.http.routers.${APP_SERVICE:-app}-buggregator.service=${APP_SERVICE:-app}-buggregator
+            - traefik.http.services.${APP_SERVICE:-app}-buggregator.loadbalancer.server.port=8000
+        networks:
+            - sail
+            - traefik
+networks:
+    sail:
+        driver: bridge
+    traefik:
+        driver: bridge
+volumes:
+    sail-mysql:
+        driver: local
+    sail-redis:
+        driver: local
+    sail-meilisearch:
+        driver: local
+    sail-minio:
+        driver: local
+    traefik-letsencrypt:
+        driver: local

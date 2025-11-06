@@ -1,0 +1,38 @@
+# Node modules
+node_modules
+
+# Laravel
+.mcp.json
+boost.json
+.env.*.example
+.env.testing
+phpstan.neon
+phpunit.xml
+.phpunit.result.cache
+/.phpunit.cache
+rector.php
+pint.json
+tests
+stubs
+.ai
+.phpunit.cache
+
+# Ide
+.editorconfig
+.prettierignore
+.prettierrc
+*/**/.md
+.idea
+.vscode
+.junie
+.claude
+
+# Git
+.git
+.gitignore
+.gitattributes
+.github
+.gitkeep
+
+# Others
+.husky
