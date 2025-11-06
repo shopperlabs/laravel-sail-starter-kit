@@ -13,7 +13,7 @@ trait HasPublicId
 {
     public static function bootHasPublicId(): void
     {
-        static::creating(function (Model $model): void {
+        static::creating(function (self $model): void {
             $model->fill([
                 'public_id' => $model->generatePublicId(),
             ]);
@@ -26,7 +26,7 @@ trait HasPublicId
     public static function findByPublicId(string $publicId, array $columns = ['*']): ?static
     {
         return static::query()->select($columns)
-            ->where((new static)->public_id, $publicId)
+            ->where('public_id', $publicId)
             ->first();
     }
 
