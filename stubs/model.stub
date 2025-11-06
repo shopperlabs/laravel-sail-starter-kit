@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Models\Traits\HasPublicId;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property-read int $id
+ * @property string $public_id
+ */
+final class {{ class }} extends Model
+{
+    use HasFactory, HasPublicId;
+
+    protected $guarded = [];
+}

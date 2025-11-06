@@ -1,13 +1,39 @@
 import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+import laravel, { refreshPaths } from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
-        }),
-        tailwindcss(),
-    ],
+  plugins: [
+    laravel({
+      input: [
+        'resources/css/app.css',
+        'resources/js/app.js',
+      ],
+      refresh: [
+        'app/Livewire/**',
+        'app/Filament/**',
+        ...refreshPaths,
+      ],
+    }),
+    {
+      name: 'blade',
+      handleHotUpdate({ file, server }) {
+        if (file.endsWith('.blade.php')) {
+          server.ws.send({
+            type: 'full-reload',
+            path: '*',
+          })
+        }
+      },
+    },
+    tailwindcss(),
+  ],
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    hmr: {
+      host: 'localhost',
+      port: 5173,
+    },
+  },
 });

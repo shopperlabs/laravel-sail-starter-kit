@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
+
+final class {{ class }} implements Scope
+{
+    /**
+     * @template TModel of Model
+     *
+     * @param  Builder<TModel>  $builder
+     */
+    public function apply(Builder $builder, Model $model): void
+    {
+        //
+    }
+}
