@@ -63,15 +63,9 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         /** @var string $domain */
         $domain = config('app.domain');
 
-        if (
-            str_ends_with($this->email, '@'.$domain)
-            && $this->hasVerifiedEmail()
-            && $this->isAdmin()
-        ) {
-            return true;
-        }
-
-        return false;
+        return str_ends_with($this->email, '@'.$domain)
+        && $this->hasVerifiedEmail()
+        && $this->isAdmin();
     }
 
     public function isAdmin(): bool
