@@ -63,6 +63,30 @@ composer dev:setup
 composer dev:run
 ```
 
+### Initialize the Application
+
+Once your containers are running, initialize the application database and create your admin user:
+
+```bash
+./vendor/bin/sail artisan app:setup
+```
+
+This command will:
+- Run database migrations
+- Generate roles and permissions (via Filament Shield)
+- Create the storage symbolic link
+- Create an admin user with interactive prompts
+
+You can also run it non-interactively by providing all options:
+
+```bash
+./vendor/bin/sail artisan app:setup \
+  --admin-firstname="John" \
+  --admin-lastname="Doe" \
+  --admin-username="john.doe" \
+  --admin-password="your-secure-password"
+```
+
 ### Configure Local Domain
 
 Add your application domain (defined in `APP_DOMAIN` from `.env`) to your hosts file:
