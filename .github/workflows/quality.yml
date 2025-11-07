@@ -21,7 +21,7 @@ jobs:
       - name: 🔮 Install Composer Dependencies
         run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
       - name: 🕵️‍♂️ Run Laravel Pint
-        run: composer test:pint
+        run: composer test:lint
 
   phpstan:
     runs-on: ubuntu-latest
