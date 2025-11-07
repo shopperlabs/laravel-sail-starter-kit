@@ -19,7 +19,7 @@ jobs:
       - name: 🪄 Setup PHP
         uses: ./.github/actions/setup
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: 🔮 Install Composer Dependencies
