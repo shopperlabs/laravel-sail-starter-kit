@@ -1,16 +1,16 @@
 ARG PHP_VERSION=8.4
 ARG NODE_VERSION=22
 
-############################################
+#---------------------------------
 # Base Image
-############################################
+#---------------------------------
 FROM ghcr.io/yieldstudio/php:${PHP_VERSION}-frankenphp AS base
 
 ENV HEALTHCHECK_PATH="/up"
 
-############################################
+#---------------------------------
 # Development Image
-############################################
+#---------------------------------
 FROM base AS development
 
 ARG WWWUSER
@@ -55,9 +55,9 @@ RUN install-php-extensions xdebug sockets
 
 USER www-data
 
-############################################
+#---------------------------------
 # CI image
-############################################
+#---------------------------------
 FROM base AS ci
 
 ENV AUTORUN_ENABLED=false
@@ -73,9 +73,9 @@ USER root
 
 RUN install-php-extensions xdebug sockets
 
-############################################
+#---------------------------------
 # Composer Build
-############################################
+#---------------------------------
 FROM base AS composer
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -85,9 +85,9 @@ COPY --chown=www-data:www-data . .
 RUN composer install --no-dev --no-interaction --no-scripts --prefer-dist \
     && composer dump-autoload --classmap-authoritative --no-dev --optimize
 
-############################################
+#---------------------------------
 # Assets Build
-############################################
+#---------------------------------
 FROM node:${NODE_VERSION}-slim AS frontend
 
 WORKDIR /app
@@ -109,9 +109,9 @@ RUN if [ -f yarn.lock ]; then \
         echo "No lock file found, skipping asset build."; \
     fi
 
-############################################
+#---------------------------------
 # Production Image
-############################################
+#---------------------------------
 FROM base
 
 ENV AUTORUN_ENABLED=true
@@ -121,17 +121,11 @@ ENV SSL_MODE=mixed
 
 USER www-data
 
-# Copy Filament assets from Composer
 COPY --from=composer --chown=www-data:www-data /var/www/html/public/css ./public/css
 COPY --from=composer --chown=www-data:www-data /var/www/html/public/js ./public/js
-
-# Composer dependencies
 COPY --from=composer --chown=www-data:www-data /var/www/html/vendor ./vendor
-
-# Application assets
 COPY --from=frontend --chown=www-data:www-data /app/public/build ./public/build
 
-# Application source
 COPY --chown=www-data:www-data . /var/www/html
 
 # Install Octane with FrankenPHP

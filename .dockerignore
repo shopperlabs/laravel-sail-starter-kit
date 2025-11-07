@@ -9,13 +9,16 @@ boost.json
 phpstan.neon
 phpunit.xml
 .phpunit.result.cache
+.phpunit.cache
 /.phpunit.cache
 rector.php
 pint.json
 tests
 stubs
-.ai
-.phpunit.cache
+database/*.sqlite
+storage/*.log
+storage/pail
+storage/logs/*
 
 # Ide
 .editorconfig
@@ -35,4 +38,5 @@ stubs
 .gitkeep
 
 # Others
+.ai
 .husky
