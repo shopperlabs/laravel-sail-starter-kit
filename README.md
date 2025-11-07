@@ -1,21 +1,19 @@
-- Blade (this project) version: **[github.com/nunomaduro/laravel-starter-kit](https://github.com/nunomaduro/laravel-starter-kit)**
-- Inertia & React version: **[github.com/nunomaduro/laravel-starter-kit-inertia-react](https://github.com/nunomaduro/laravel-starter-kit-inertia-react)**
-
-
-<p align="center">
-    <a href="https://youtu.be/VhzP0XWGTC4" target="_blank">
-        <img src="/art/banner.png" alt="Overview Laravel Starter Kit" style="width:70%;">
-    </a>
-</p>
+<a href="https://shopperlabs.co/" target="_blank">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="art/banner-dark.png">
+    <img alt="branding for Laravel Sail Starter kit" src="art/banner-light.png">
+  </picture>
+</a>
 
 <p>
-    <a href="https://github.com/nunomaduro/laravel-starter-kit/actions"><img src="https://github.com/nunomaduro/laravel-starter-kit/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-    <a href="https://packagist.org/packages/nunomaduro/laravel-starter-kit"><img src="https://img.shields.io/packagist/dt/nunomaduro/laravel-starter-kit" alt="Total Downloads"></a>
-    <a href="https://packagist.org/packages/nunomaduro/laravel-starter-kit"><img src="https://img.shields.io/packagist/v/nunomaduro/laravel-starter-kit" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/nunomaduro/laravel-starter-kit"><img src="https://img.shields.io/packagist/l/nunomaduro/laravel-starter-kit" alt="License"></a>
+    <a href="https://php.net"><img alt="PHP 8.4+" src="https://img.shields.io/badge/PHP-8.4+-777BB4?logo=php"></a>
+    <a href="https://laravel.com"><img alt="Laravel v12.x" src="https://img.shields.io/badge/Laravel-v12.x-FF2D20"></a>
+    <a href="https://filamentphp.com"><img alt="Filament 4.1" src="https://img.shields.io/badge/Filament-4.1-FDAE4B?logo=filament"></a>
+    <a href="https://github.com/shopperlabs/laravel-sail-starter-kit/actions"><img src="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/quality.yml"><img src="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/quality.yml/badge.svg" alt="Coding Standards" /></a>
 </p>
 
-**Laravel Starter Kit** is an ultra-strict, type-safe [Laravel](https://laravel.com) skeleton engineered for developers who refuse to compromise on code quality. This opinionated starter kit enforces rigorous development standards through meticulous tooling configuration and architectural decisions that prioritize type safety, immutability, and fail-fast principles.
+**Laravel Sail Starter Kit** is an ultra-strict, type-safe [Laravel](https://laravel.com) skeleton engineered for developers who refuse to compromise on code quality. This opinionated starter kit enforces rigorous development standards through meticulous tooling configuration and architectural decisions that prioritize type safety, immutability, and fail-fast principles.
 
 ## Why This Starter Kit?
 
@@ -30,6 +28,15 @@ Modern PHP has evolved into a mature, type-safe language, yet many Laravel proje
 
 This isn't just another Laravel boilerplate—it's a statement that PHP applications can and should be built with the same rigor as strongly-typed languages like Rust or TypeScript.
 
+## Included Features
+
+This Starter kit contains my starting point when developing a new Laravel project using Filament & Sail. Its based on the [Laravel Starter Kit](https://github.com/nunomaduro/laravel-starter-kit) by **[Nuno Maduro](https://x.com/enunomaduro)**, and includes the following features:
+
+- ✅ **[Traefik](https://doc.traefik.io/traefik/)** as reverse proxy to serve your application locally and in production,
+- ✅ **[Laravel Octane](https://laravel.com/docs/12.x/octane)** with FrankenPHP to supercharges your application's performance,
+- ✅ **[Spatie Roles & Permission](https://filamentphp.com/plugins/bezhansalleh-shield)** with Filament Shield,
+- ✅ Updated for Laravel 12.*, Filament 4.1 **and** Livewire 3.6
+
 ## Getting Started
 
 > **Requires [PHP 8.4+](https://php.net/releases/)**.
@@ -37,7 +44,9 @@ This isn't just another Laravel boilerplate—it's a statement that PHP applicat
 Create your type-safe Laravel application using [Composer](https://getcomposer.org):
 
 ```bash
-composer create-project nunomaduro/laravel-starter-kit --prefer-dist example-app
+composer create-project shopperlabs/laravel-sail-starter-kit --prefer-dist example-app
+# Or
+laravel new example-app --using=shopperlabs/laravel-sail-starter-kit
 ```
 
 ### Initial Setup
@@ -48,10 +57,34 @@ Navigate to your project and complete the setup:
 cd example-app
 
 # Setup project
-composer setup
+composer dev:setup
 
 # Start the development server
-composer dev
+composer dev:run
+```
+
+### Configure Local Domain
+
+Add your application domain (defined in `APP_DOMAIN` from `.env`) to your hosts file:
+
+**Linux/macOS:**
+```bash
+sudo sh -c 'echo "127.0.0.1       your-domain.local" >> /etc/hosts'
+```
+
+**Windows (as Administrator):**
+```bash
+echo 127.0.0.1       your-domain.local >> C:\Windows\System32\drivers\etc\hosts
+```
+
+Replace `your-domain.local` with your actual `APP_DOMAIN` value.
+
+### Optional: Dokploy Deployment
+
+If you're using [Dokploy](https://dokploy.com) like me to deploy Docker-based apps, I've got you covered. Copy `docker-compose.prod.yml.example` to `docker-compose.prod.yml` and customize it—it's already configured with Dokploy's network setup.
+
+```bash
+cp docker-compose.prod.yml.example docker-compose.prod.yml
 ```
 
 ### Optional: Browser Testing Setup
@@ -76,7 +109,7 @@ You should see 100% test coverage and all quality checks passing.
 ## Available Tooling
 
 ### Development
-- `composer dev` - Starts Laravel server, queue worker, log monitoring, and Vite dev server concurrently
+- `composer dev:run` - Starts Laravel sail, queue worker, log monitoring, and Vite dev server concurrently
 
 ### Code Quality
 - `composer lint` - Runs Rector (refactoring), Pint (PHP formatting), and Prettier (JS/TS formatting)
@@ -84,7 +117,7 @@ You should see 100% test coverage and all quality checks passing.
 
 ### Testing
 - `composer test:type-coverage` - Ensures 100% type coverage with Pest
-- `composer test:types` - Runs PHPStan at level 9 (maximum strictness)
+- `composer test:types` - Runs PHPStan at level 10 (maximum strictness)
 - `composer test:unit` - Runs Pest tests with 100% code coverage requirement
 - `composer test` - Runs the complete test suite (type coverage, unit tests, linting, static analysis)
 
@@ -93,4 +126,4 @@ You should see 100% test coverage and all quality checks passing.
 
 ## License
 
-**Laravel Starter Kit** was created by **[Nuno Maduro](https://x.com/enunomaduro)** under the **[MIT license](https://opensource.org/licenses/MIT)**.
+**Laravel Sail Starter Kit** was created by **[Arthur Monney](https://x.com/monneyarthur)** inspired by **[Laravel Starter Kit](https://github.com/nunomaduro/laravel-starter-kit)** of **[Nuno Maduro](https://x.com/enunomaduro)** under the **[MIT license](https://opensource.org/licenses/MIT)**.

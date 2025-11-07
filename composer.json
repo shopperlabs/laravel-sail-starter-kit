@@ -15,7 +15,8 @@
   "require": {
     "php": "^8.4.0",
     "laravel/framework": "^12.33.0",
-    "laravel/octane": "^2.13",
+    "laravel/octane": "^2.13.1",
+    "league/flysystem-aws-s3-v3": "^3.30.1",
     "nunomaduro/essentials": "^1.0.1"
   },
   "require-dev": {
@@ -50,9 +51,10 @@
     "dev:setup": [
       "composer install",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-      "@php artisan key:generate",
       "./vendor/bin/sail up -d",
       "./vendor/bin/sail composer install",
+      "./vendor/bin/sail artisan key:generate",
+      "./vendor/bin/sail artisan octane:install --server=frankenphp",
       "./vendor/bin/sail npm install --no-update-notifier",
       "./vendor/bin/sail npm run build",
       "./vendor/bin/sail stop"

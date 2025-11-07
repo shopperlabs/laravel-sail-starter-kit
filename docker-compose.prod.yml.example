@@ -11,7 +11,7 @@ services:
             extra_hosts:
                 - 'host.docker.internal:host-gateway'
             healthcheck:
-                test: [ 'CMD', 'curl', '-f', 'http://localhost:${APP_PORT:-8080}/up' ]
+                test: ['CMD', 'curl', '-f', 'http://localhost:${APP_PORT:-8080}/up']
                 timeout: 30s
         environment:
             APP_NAME: ${APP_NAME}
@@ -96,7 +96,7 @@ services:
     schedule:
         image: app/php
         restart: always
-        command: [ 'artisan', 'schedule:run' ]
+        command: ['artisan', 'schedule:run']
         stop_signal: SIGTERM
         healthcheck:
             test: [ 'CMD', 'healthcheck-schedule' ]
@@ -181,7 +181,7 @@ services:
             - '--queue=default,media'
         stop_signal: SIGTERM
         healthcheck:
-            test: [ 'CMD', 'healthcheck-queue' ]
+            test: ['CMD', 'healthcheck-queue']
             start_period: 10s
         environment:
             APP_NAME: ${APP_NAME}
