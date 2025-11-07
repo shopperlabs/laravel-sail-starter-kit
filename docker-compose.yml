@@ -14,7 +14,7 @@ services:
         ports:
             - '80:80'
             - '443:443'
-            - '8088:8080'
+            - '8080:8080'
             - '8000:8000'
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
@@ -40,15 +40,13 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
-            WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
-            SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=frankenphp --host=0.0.0.0 --admin-port=2019 --port='${APP_PORT:-80}'"
+            SUPERVISOR_PHP_COMMAND: "/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan octane:start --server=frankenphp --host=0.0.0.0 --admin-port=2019 --port='${APP_PORT:-80}' --workers=2 --max-requests=250"
             XDG_CONFIG_HOME: /var/www/html/config
             XDG_DATA_HOME: /var/www/html/data
         healthcheck:
@@ -60,13 +58,20 @@ services:
             - sail
             - traefik
         depends_on:
-            - traefik
-            - mysql
-            - redis
-            - meilisearch
-            - minio
-            - mailpit
-            - soketi
+            traefik:
+                condition: service_started
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+            meilisearch:
+                condition: service_healthy
+            minio:
+                condition: service_healthy
+            mailpit:
+                condition: service_healthy
+            soketi:
+                condition: service_started
         labels:
             - traefik.enable=true
             - traefik.http.routers.${APP_SERVICE:-app}.rule=Host(`${APP_DOMAIN:-laravel.local}`)

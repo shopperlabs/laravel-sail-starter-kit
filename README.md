@@ -63,6 +63,30 @@ composer dev:setup
 composer dev:run
 ```
 
+### Initialize the Application
+
+Once your containers are running, initialize the application database and create your admin user:
+
+```bash
+./vendor/bin/sail artisan app:setup
+```
+
+This command will:
+- Run database migrations
+- Generate roles and permissions (via Filament Shield)
+- Create the storage symbolic link
+- Create an admin user with interactive prompts
+
+You can also run it non-interactively by providing all options:
+
+```bash
+./vendor/bin/sail artisan app:setup \
+  --admin-firstname="John" \
+  --admin-lastname="Doe" \
+  --admin-username="john.doe" \
+  --admin-password="your-secure-password"
+```
+
 ### Configure Local Domain
 
 Add your application domain (defined in `APP_DOMAIN` from `.env`) to your hosts file:
@@ -78,6 +102,25 @@ echo 127.0.0.1       your-domain.local >> C:\Windows\System32\drivers\etc\hosts
 ```
 
 Replace `your-domain.local` with your actual `APP_DOMAIN` value.
+
+## MinIO Configuration (File Storage)
+
+By default, the application uses MinIO for media file storage. After installation, you need to create the bucket and make it public.
+
+### Create and Make Bucket Public
+
+Run this command via **MinIO CLI** container:
+
+```bash
+docker exec -it app-minio-1 sh
+mc alias set local http://localhost:9000 sail password
+mc anonymous set download local/universy
+exit
+```
+
+**Common Errors**
+- "Disk named 'media' cannot be accessed": Bucket doesn't exist, run the configuration above.
+- 403 Forbidden on image URLs: Bucket is not public, apply the public policy above.
 
 ### Optional: Dokploy Deployment
 
