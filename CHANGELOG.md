@@ -1,1 +1,22 @@
 # Changelog
+
+## v1.0 - 2025-11-10
+
+### What's Changed
+
+* Feat/setup docker by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/1
+* feat: add new github actions and update readme by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/2
+* build(deps): bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/5
+* build(deps): bump the php-dependencies group with 7 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/7
+* build(deps): bump actions/setup-node from 4 to 6 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/3
+* build(deps): bump actions/upload-artifact from 4 to 5 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/4
+* build(deps): bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/6
+* Feature/install setup filament by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/8
+* feat: add Filament UserResource by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/9
+
+### New Contributors
+
+* @mckenziearts made their first contribution in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/1
+* @dependabot[bot] made their first contribution in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/5
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/commits/v1.0
