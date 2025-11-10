@@ -6,11 +6,13 @@
 </a>
 
 <p>
-    <a href="https://php.net"><img alt="PHP 8.4+" src="https://img.shields.io/badge/PHP-8.4+-777BB4?logo=php"></a>
-    <a href="https://laravel.com"><img alt="Laravel v12.x" src="https://img.shields.io/badge/Laravel-v12.x-FF2D20"></a>
-    <a href="https://filamentphp.com"><img alt="Filament 4.1" src="https://img.shields.io/badge/Filament-4.1-FDAE4B?logo=filament"></a>
-    <a href="https://github.com/shopperlabs/laravel-sail-starter-kit/actions"><img src="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-    <a href="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/quality.yml"><img src="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/quality.yml/badge.svg" alt="Coding Standards" /></a>
+    <a href="https://php.net"><img alt="PHP 8.4+" src="https://img.shields.io/badge/PHP-8.4+-777BB4?logo=php&style=flat-square"></a>
+    <a href="https://laravel.com"><img alt="Laravel v12.x" src="https://img.shields.io/badge/Laravel-v12.x-FF2D20?style=flat-square"></a>
+    <a href="https://filamentphp.com"><img alt="Filament 4.1" src="https://img.shields.io/badge/Filament-4.1-FDAE4B?logo=filament&style=flat-square"></a>
+    <a href="https://packagist.org/packages/shopperlabs/laravel-sail-starter-kit"><img src="https://img.shields.io/packagist/dt/shopperlabs/laravel-sail-starter-kit?style=flat-square" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/shopperlabs/laravel-sail-starter-kit"><img src="https://img.shields.io/packagist/v/shopperlabs/laravel-sail-starter-kit?style=flat-square" alt="Latest Stable Version"></a>
+    <a href="https://github.com/shopperlabs/laravel-sail-starter-kit/actions"><img src="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/tests.yml/badge.svg?style=flat-square" alt="Build Status"></a>
+    <a href="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/quality.yml"><img src="https://github.com/shopperlabs/laravel-sail-starter-kit/actions/workflows/quality.yml/badge.svg?style=flat-square" alt="Coding Standards" /></a>
 </p>
 
 **Laravel Sail Starter Kit** is an ultra-strict, type-safe [Laravel](https://laravel.com) skeleton engineered for developers who refuse to compromise on code quality. This opinionated starter kit enforces rigorous development standards through meticulous tooling configuration and architectural decisions that prioritize type safety, immutability, and fail-fast principles.
