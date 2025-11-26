@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.1 - 2025-11-26
+
+### What's Changed
+
+* build(deps): bump the php-dependencies group with 4 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/10
+* build(deps): bump the php-dependencies group with 6 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/11
+* build(deps): bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/12
+* Feature/update dependencies by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/13
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/compare/v1.0...v1.1
+
 ## v1.0 - 2025-11-10
 
 ### What's Changed
