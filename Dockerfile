@@ -114,10 +114,13 @@ RUN if [ -f yarn.lock ]; then \
 #---------------------------------
 FROM base
 
-ENV AUTORUN_ENABLED=true
-ENV PHP_OPCACHE_ENABLE=1
-ENV PHP_MEMORY_LIMIT=512M
-ENV SSL_MODE=mixed
+ENV \
+    AUTORUN_ENABLED=true \
+    SSL_MODE=off \
+    PHP_OPCACHE_ENABLE=1 \
+    PHP_MEMORY_LIMIT=512M \
+    OCTANE_SERVER=frankenphp \
+    HEALTHCHECK_PATH="/up"
 
 USER www-data
 
@@ -127,6 +130,3 @@ COPY --from=composer --chown=www-data:www-data /var/www/html/vendor ./vendor
 COPY --from=frontend --chown=www-data:www-data /app/public/build ./public/build
 
 COPY --chown=www-data:www-data . /var/www/html
-
-# Install Octane with FrankenPHP
-RUN php artisan octane:install --server=frankenphp -n

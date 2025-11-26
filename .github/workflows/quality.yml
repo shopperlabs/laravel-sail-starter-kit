@@ -41,6 +41,20 @@ jobs:
       - name: 🕵️‍♂️ Run PHPStan
         run: composer test:types
 
+  type-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 👀 Checkout
+        uses: actions/checkout@v6
+      - name: 🪄 Setup PHP
+        uses: ./.github/actions/setup
+        env:
+          COMPOSER_AUTH_TOKEN: ${{ secrets.COMPOSER_AUTH_TOKEN }}
+      - name: 🔮 Install Composer Dependencies
+        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+      - name: 🕵️‍♂️ Run PHPStan
+        run: composer test:type-coverage
+
   composer:
     runs-on: ubuntu-22.04
     steps:

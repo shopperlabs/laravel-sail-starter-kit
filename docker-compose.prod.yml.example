@@ -6,7 +6,7 @@ services:
             args:
                 NODE_VERSION: 22
                 PHP_VERSION: 8.4
-            image: app/php
+            image: sail-${APP_SERVICE}-app:latest
             restart: always
             extra_hosts:
                 - 'host.docker.internal:host-gateway'
@@ -94,12 +94,12 @@ services:
         networks:
             - dokploy-network
     schedule:
-        image: app/php
+        image: sail-${APP_SERVICE}-app:latest
         restart: always
-        command: ['artisan', 'schedule:run']
+        command: ['artisan', 'schedule:work']
         stop_signal: SIGTERM
         healthcheck:
-            test: [ 'CMD', 'healthcheck-schedule' ]
+            test: ['CMD', 'healthcheck-schedule']
             start_period: 10s
         environment:
             APP_NAME: ${APP_NAME}
@@ -169,7 +169,7 @@ services:
         depends_on:
             - app
     queue:
-        image: goshen/php
+        image: sail-${APP_SERVICE}-app:latest
         restart: always
         command:
             - 'artisan'
