@@ -15,30 +15,37 @@
   "require": {
     "php": "^8.4.0",
     "bezhansalleh/filament-shield": "^4.0.2",
-    "filament/filament": "^4.2",
-    "filament/spatie-laravel-media-library-plugin": "^4.2",
-    "laravel/framework": "^12.37.0",
+    "filament/filament": "^4.2.3",
+    "filament/spatie-laravel-media-library-plugin": "^4.2.3",
+    "laravel/framework": "^12.40.1",
     "laravel/octane": "^2.13.1",
     "league/flysystem-aws-s3-v3": "^3.30.1",
     "mckenziearts/blade-untitledui-icons": "^1.4",
     "nunomaduro/essentials": "^1.0.1"
   },
   "require-dev": {
-    "barryvdh/laravel-debugbar": "^3.16",
+    "barryvdh/laravel-debugbar": "^3.16.1",
     "driftingly/rector-laravel": "^2.1.3",
     "fakerphp/faker": "^1.24.1",
     "larastan/larastan": "^3.8.0",
-    "laravel/boost": "^1.7.1",
-    "laravel/pail": "^1.2.3",
-    "laravel/pint": "^1.25.1",
-    "laravel/sail": "^1.47",
+    "laravel/boost": "^1.8.2",
+    "laravel/pail": "^1.2.4",
+    "laravel/pint": "^1.26.0",
+    "laravel/sail": "^1.48.1",
     "mockery/mockery": "^1.6.12",
-    "nunomaduro/collision": "^8.8.2",
-    "pestphp/pest": "^4.1.3",
+    "nunomaduro/collision": "^8.8.3",
+    "pestphp/pest": "^4.1.5",
     "pestphp/pest-plugin-browser": "^4.1.1",
     "pestphp/pest-plugin-laravel": "^4.0.0",
     "pestphp/pest-plugin-type-coverage": "^4.0.3",
-    "rector/rector": "^2.2.7"
+    "rector/rector": "^2.2.8"
+  },
+  "suggest": {
+    "ext-redis": "Required to use the Redis cache and session drivers.",
+    "sentry/sentry-laravel": "For error tracking and monitoring.",
+    "laravel/telescope": "To use Laravel Telescope for debugging and profiling.",
+    "laravel/horizon": "To manage queues using Laravel Horizon.",
+    "livewire/flux": "To build dynamic and intuitive UI interfaces using Livewire."
   },
   "autoload": {
     "psr-4": {
@@ -63,15 +70,19 @@
       "./vendor/bin/sail npm run build",
       "./vendor/bin/sail stop"
     ],
-    "dev:unsinstall": "docker compose down --rmi all --volumes --remove-orphans",
+    "dev:uninstall": "docker compose down --rmi all --volumes --remove-orphans",
     "dev:run": [
       "Composer\\Config::disableProcessTimeout",
       "./vendor/bin/sail up -d",
       "./vendor/bin/sail npm config set update-notifier false",
       "./vendor/bin/sail npx concurrently -c \"#505b92,#d32d21\" \"composer install\" \"npm install --no-update-notifier\" --names=composer,npm",
-      "./vendor/bin/sail npx concurrently -c \"#93c5fd,#fb7185,#fdba74\" \"artisan queue:listen --tries=1\" \"artisan pail --timeout=0\" \"npm run dev\" --names=queue,logs,vite"
+      "./vendor/bin/sail npx concurrently -c \"#fb7185,#fdba74\" \"artisan pail --timeout=0\" \"npm run dev\" --names=logs,vite"
     ],
     "dev:stop": "./vendor/bin/sail down",
+    "dev:restart": [
+      "@composer dev:stop",
+      "@composer dev:run"
+    ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php artisan package:discover --ansi",
@@ -80,7 +91,8 @@
     "post-update-cmd": [
       "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
       "@php artisan clear",
-      "@update:requirements"
+      "@update:requirements",
+      "./vendor/bin/sail artisan boost:update --ansi"
     ],
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -99,14 +111,14 @@
       "pint --parallel",
       "npm run lint"
     ],
-    "test:type-coverage": "pest --type-coverage --min=100",
+    "test:type-coverage": "pest --type-coverage --min=100 --memory-limit=-1",
     "test:lint": [
       "pint --parallel --test",
       "rector --dry-run",
       "npm run test:lint"
     ],
     "test:unit": "pest --parallel --coverage --exactly=100.0",
-    "test:types": "phpstan",
+    "test:types": "phpstan analyse --memory-limit=-1",
     "test": [
       "@test:type-coverage",
       "@test:unit",
