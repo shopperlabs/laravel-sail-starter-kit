@@ -105,20 +105,15 @@ echo 127.0.0.1       your-domain.local >> C:\Windows\System32\drivers\etc\hosts
 
 Replace `your-domain.local` with your actual `APP_DOMAIN` value.
 
-## MinIO Configuration (File Storage)
+### Access Your Application
 
-By default, the application uses MinIO for media file storage. After installation, you need to create the bucket and make it public.
-
-### Create and Make Bucket Public
-
-Run this command via **MinIO CLI** container:
-
-```bash
-docker exec -it app-minio-1 sh
-mc alias set local http://localhost:9000 sail password
-mc anonymous set download local/universy
-exit
-```
+- **Application**: http://laravel.local (or your custom domain)
+- **Admin Panel**: http://laravel.local/cpanel
+- **MinIO Console**: http://laravel.local:9001 (sail/password)
+- **MinIO API**: http://laravel.local:9000
+- **Buggregator**: http://laravel.local:8000
+- **Traefik Dashboard**: http://laravel.local:8080
+- **Vite Dev Server**: http://laravel.local:5173
 
 **Common Errors**
 - "Disk named 'media' cannot be accessed": Bucket doesn't exist, run the configuration above.

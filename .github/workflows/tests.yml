@@ -8,20 +8,20 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  ci:
+  pest:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.4
-          tools: composer:v2
-          coverage: xdebug
+      - name: 🪄 Setup
+        uses: ./.github/actions/setup
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -79,7 +79,7 @@ jobs:
       - run: mkdir -p /tmp/phpstan
 
       - name: Tests
-        run: composer test
+        run: composer test:unit
 
       - name: Store Artifacts
         uses: actions/upload-artifact@v5

@@ -1,14 +1,20 @@
 {
   "agents": [
     "claude_code",
+    "copilot",
     "cursor",
+    "opencode",
     "phpstorm"
   ],
   "editors": [
     "claude_code",
     "cursor",
-    "phpstorm"
+    "opencode",
+    "phpstorm",
+    "vscode"
   ],
-  "guidelines": [],
+  "guidelines": [
+    "filament/filament"
+  ],
   "sail": true
 }

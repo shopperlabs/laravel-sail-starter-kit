@@ -40,3 +40,4 @@ storage/logs/*
 # Others
 .ai
 .husky
+.docker
