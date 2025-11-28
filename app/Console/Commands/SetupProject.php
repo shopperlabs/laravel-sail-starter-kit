@@ -145,7 +145,7 @@ final class SetupProject extends Command
      */
     private function getAdminCredentials(): array
     {
-        /** @var string|null $firstname */
+        /** @var ?string $firstname */
         $firstname = $this->option('admin-firstname');
         /** @var string $domain */
         $domain = config('app.domain');
@@ -158,7 +158,7 @@ final class SetupProject extends Command
             );
         }
 
-        /** @var string|null $lastname */
+        /** @var ?string $lastname */
         $lastname = $this->option('admin-lastname');
 
         if (blank($lastname)) {
@@ -169,7 +169,7 @@ final class SetupProject extends Command
             );
         }
 
-        /** @var string|null $username */
+        /** @var ?string $username */
         $username = $this->option('admin-username');
 
         if (blank($username)) {
@@ -199,7 +199,7 @@ final class SetupProject extends Command
             exit(1);
         }
 
-        /** @var string|null $passwordInput */
+        /** @var ?string $passwordInput */
         $passwordInput = $this->option('admin-password');
 
         if (blank($passwordInput)) {
@@ -267,7 +267,7 @@ final class SetupProject extends Command
 
     private function validateAdminPassword(string $password): ?string
     {
-        if (mb_strlen($password) <= 8) {
+        if (mb_strlen($password) < 8) {
             return 'Password must be at least 8 characters long.';
         }
 

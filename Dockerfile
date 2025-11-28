@@ -130,3 +130,6 @@ COPY --from=composer --chown=www-data:www-data /var/www/html/vendor ./vendor
 COPY --from=frontend --chown=www-data:www-data /app/public/build ./public/build
 
 COPY --chown=www-data:www-data . /var/www/html
+
+# Install Octane with FrankenPHP
+RUN php artisan octane:install --server=frankenphp -n

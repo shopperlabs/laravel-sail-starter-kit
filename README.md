@@ -107,13 +107,13 @@ Replace `your-domain.local` with your actual `APP_DOMAIN` value.
 
 ### Access Your Application
 
-- **Application**: http://laravel.local (or your custom domain)
-- **Admin Panel**: http://laravel.local/cpanel
+- **Application**: https://laravel.local (or your custom domain)
+- **Admin Panel**: https://laravel.local/cpanel
 - **MinIO Console**: http://laravel.local:9001 (sail/password)
 - **MinIO API**: http://laravel.local:9000
-- **Buggregator**: http://laravel.local:8000
+- **Buggregator**: https://laravel.local:8000
 - **Traefik Dashboard**: http://laravel.local:8080
-- **Vite Dev Server**: http://laravel.local:5173
+- **Vite Dev Server**: https://laravel.local:5173
 
 **Common Errors**
 - "Disk named 'media' cannot be accessed": Bucket doesn't exist, run the configuration above.
