@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.1.1 - 2025-11-28
+
+### What's Changed
+
+* build(deps): bump the php-dependencies group with 2 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/14
+* feat: rename docker file and improve codebase by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/15
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/compare/v1.1...v1.1.1
+
 ## v1.1 - 2025-11-26
 
 ### What's Changed
