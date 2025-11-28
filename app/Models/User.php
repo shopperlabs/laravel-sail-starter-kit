@@ -25,9 +25,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read string $lastname
  * @property-read string $name
  * @property-read string $email
- * @property-read CarbonInterface|null $email_verified_at
+ * @property-read ?CarbonInterface $email_verified_at
  * @property-read string $password
- * @property-read string|null $remember_token
+ * @property-read ?string $remember_token
  * @property-read CarbonInterface $created_at
  * @property-read CarbonInterface $updated_at
  */
@@ -43,20 +43,6 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
         'password',
         'remember_token',
     ];
-
-    /**
-     * @return array<string, string>
-     */
-    public function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'remember_token' => 'string',
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
-        ];
-    }
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -80,6 +66,20 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function getFilamentName(): string
     {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'remember_token' => 'string',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
     }
 
     /**

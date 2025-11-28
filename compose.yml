@@ -97,12 +97,12 @@ services:
             - traefik.http.routers.${APP_SERVICE}-insecure.service=${APP_SERVICE}
             - traefik.http.routers.${APP_SERVICE}-insecure.middlewares=redirect-to-https
             - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            - 'traefik.http.routers.${APP_SERVICE}-vite.rule=Host(`${APP_DOMAIN}`)'
-            - 'traefik.http.routers.${APP_SERVICE}-vite.entrypoints=vite'
-            - 'traefik.http.routers.${APP_SERVICE}-vite.service=${APP_SERVICE}-vite'
-            - 'traefik.http.routers.${APP_SERVICE}-vite.tls=true'
-            - 'traefik.http.routers.${APP_SERVICE}-vite.middlewares=vite-cors@file'
-            - 'traefik.http.services.${APP_SERVICE}-vite.loadbalancer.server.port=5173'
+            - traefik.http.routers.${APP_SERVICE}-vite.rule=Host(`${APP_DOMAIN}`)
+            - traefik.http.routers.${APP_SERVICE}-vite.entrypoints=vite
+            - traefik.http.routers.${APP_SERVICE}-vite.service=${APP_SERVICE}-vite
+            - traefik.http.routers.${APP_SERVICE}-vite.tls=true
+            - traefik.http.routers.${APP_SERVICE}-vite.middlewares=vite-cors@file
+            - traefik.http.services.${APP_SERVICE}-vite.loadbalancer.server.port=5173
 
     mariadb:
         image: 'mariadb:11'
@@ -194,15 +194,15 @@ services:
             - sail
         command: 'minio server /data --console-address ":9001"'
         labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.minio.rule=Host(`${APP_DOMAIN}`)'
-            - 'traefik.http.routers.minio.entrypoints=minio'
-            - 'traefik.http.routers.minio.service=minio'
-            - 'traefik.http.services.minio.loadbalancer.server.port=9000'
-            - 'traefik.http.routers.minio-console.rule=Host(`${APP_DOMAIN}`)'
-            - 'traefik.http.routers.minio-console.entrypoints=minio-console'
-            - 'traefik.http.routers.minio-console.service=minio-console'
-            - 'traefik.http.services.minio-console.loadbalancer.server.port=9001'
+            - traefik.enable=true
+            - traefik.http.routers.minio.rule=Host(`${APP_DOMAIN}`)
+            - traefik.http.routers.minio.entrypoints=minio
+            - traefik.http.routers.minio.service=minio
+            - traefik.http.services.minio.loadbalancer.server.port=9000
+            - traefik.http.routers.minio-console.rule=Host(`${APP_DOMAIN}`)
+            - traefik.http.routers.minio-console.entrypoints=minio-console
+            - traefik.http.routers.minio-console.service=minio-console
+            - traefik.http.services.minio-console.loadbalancer.server.port=9001
         healthcheck:
             test: ['CMD', 'mc', 'ready', 'local']
             retries: 3
@@ -234,6 +234,7 @@ services:
             - traefik.enable=true
             - traefik.http.routers.${APP_SERVICE}-buggregator.rule=Host(`${APP_DOMAIN}`)
             - traefik.http.routers.${APP_SERVICE}-buggregator.entrypoints=devtools
+            - traefik.http.routers.${APP_SERVICE:-app}-buggregator.tls=true
             - traefik.http.routers.${APP_SERVICE}-buggregator.service=${APP_SERVICE}-buggregator
             - traefik.http.services.${APP_SERVICE}-buggregator.loadbalancer.server.port=8000
         networks:

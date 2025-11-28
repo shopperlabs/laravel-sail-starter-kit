@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
-import '@dotenvx/dotenvx/config';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env' });
 
 const APP_HOST = process.env.APP_URL ? new URL(process.env.APP_URL).host : 'laravel.local';
 const VITE_PORT = 5173;
@@ -36,6 +38,7 @@ export default defineConfig({
     strictPort: true,
     hmr: {
       host: APP_HOST,
+      port: VITE_PORT,
       protocol: 'wss',
     },
   },

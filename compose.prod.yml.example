@@ -74,7 +74,6 @@ services:
             SCOUT_DRIVER: ${SCOUT_DRIVER}
             MEILISEARCH_HOST: ${MEILISEARCH_HOST}
             MEILISEARCH_NO_ANALYTICS: ${MEILISEARCH_NO_ANALYTICS}
-            OCTANE_SERVER: 'frankenphp'
             CADDY_GLOBAL_OPTIONS: |
                 servers {
                     trusted_proxies static private_ranges
@@ -93,6 +92,7 @@ services:
             - storage:/var/www/html/storage
         networks:
             - dokploy-network
+
     schedule:
         image: sail-${APP_SERVICE}-app:latest
         restart: always
@@ -168,6 +168,7 @@ services:
             - dokploy-network
         depends_on:
             - app
+
     queue:
         image: sail-${APP_SERVICE}-app:latest
         restart: always
@@ -250,6 +251,7 @@ services:
             - dokploy-network
         depends_on:
             - app
+
 networks:
     dokploy-network:
         external: true
