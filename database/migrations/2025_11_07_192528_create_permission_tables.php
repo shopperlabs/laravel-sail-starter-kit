@@ -125,7 +125,7 @@ return new class extends Migration
         /** @var string $key */
         $key = config('permission.cache.key');
 
-        app(Illuminate\Contracts\Cache\Factory::class)
+        resolve(Illuminate\Contracts\Cache\Factory::class)
             ->store($store !== 'default' ? $store : null)
             ->forget($key);
     }
