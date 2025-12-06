@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.1.2 - 2025-12-06
+
+### What's Changed
+
+* build(deps-dev): bump the js-dependencies group with 3 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/16
+* build(deps): bump the php-dependencies group with 7 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/17
+* feat: add create admin user command by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/18
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2025-11-28
 
 ### What's Changed
