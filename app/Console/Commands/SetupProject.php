@@ -7,9 +7,13 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
+use function App\updateEnvVariable;
+use function Laravel\Prompts\text;
+
 final class SetupProject extends Command
 {
     protected $signature = 'app:setup
+                            {domain? : Your Laravel app domain}
                             {--admin-firstname= : Admin user first name}
                             {--admin-lastname= : Admin user last name}
                             {--admin-username= : Admin username (used for email generation)}
@@ -17,15 +21,34 @@ final class SetupProject extends Command
 
     protected $description = 'Initialize database, roles, permissions and create admin user';
 
+    private ?string $domain = null;
+
     public function handle(): void
     {
         $this->info('🚀 Starting App Initialization...');
 
-        $this->runMigrations()
+        $this->domain = $this->getDomain();
+
+        $this->setupDomain()
+            ->runMigrations()
             ->generateRolesAndPermissions()
             ->storageLink()
             ->createAdminUser()
             ->displayResult();
+    }
+
+    private function setupDomain(): self
+    {
+        $this->newLine();
+        $this->info('🌐️ Setup domain url...');
+
+        updateEnvVariable('APP_DOMAIN', $this->domain);
+        updateEnvVariable('APP_URL', "https://{$this->domain}");
+        updateEnvVariable('ASSET_URL', "https://{$this->domain}");
+
+        $this->info('✅ Domain are configured correctly.');
+
+        return $this;
     }
 
     private function runMigrations(): self
@@ -47,11 +70,29 @@ final class SetupProject extends Command
             '--panel' => 'admin',
             '--ignore-existing-policies' => true,
             '--all' => true,
+            '--option' => 'policies_and_permissions',
         ], $this->getOutput());
 
         $this->info('✅ Roles and permissions generated and assigned successfully.');
 
         return $this;
+    }
+
+    private function getDomain(): string
+    {
+        /** @var ?string $domain */
+        $domain = $this->argument('domain');
+
+        if (blank($domain)) {
+            return text(
+                label: 'Laravel App domain',
+                placeholder: 'laravel.local',
+                required: true,
+                hint: 'This is the domain is used to generate the default admin email and you APP_DOMAIN variable.',
+            );
+        }
+
+        return $domain;
     }
 
     private function storageLink(): self
