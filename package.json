@@ -10,16 +10,16 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@tailwindcss/vite": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.18",
     "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
     "laravel-vite-plugin": "^2.0.1",
-    "npm-check-updates": "^19.1.2",
+    "npm-check-updates": "^19.2.0",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4.1.17",
-    "vite": "^7.2.6"
+    "tailwindcss": "^4.1.18",
+    "vite": "^7.3.0"
   }
 }
