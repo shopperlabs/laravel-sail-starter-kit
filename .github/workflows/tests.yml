@@ -82,7 +82,7 @@ jobs:
         run: composer test:unit
 
       - name: Store Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: browser-screenshots
           path: |
