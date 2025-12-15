@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.3 - 2025-12-15
+
+### What's Changed
+
+* build(deps-dev): bump the js-dependencies group with 2 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/19
+* build(deps): bump the php-dependencies group with 5 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/20
+* build(deps): bump actions/upload-artifact from 5 to 6 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/22
+* build(deps): bump actions/cache from 4 to 5 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/21
+* Patch/update stub files by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/23
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/compare/v1.1.2...v1.1.3
+
 ## v1.1.2 - 2025-12-06
 
 ### What's Changed
