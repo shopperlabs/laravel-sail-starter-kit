@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Process;
@@ -47,8 +48,8 @@ function setupPermissionForResource(string $model, User $user): void
         Permission::create(['name' => $permission]);
     }
 
-    Role::create(['name' => 'super_admin']);
+    Role::create(['name' => Utils::getSuperAdminName()]);
 
-    $user->assignRole(['super_admin']);
+    $user->assignRole([Utils::getSuperAdminName()]);
     $user->givePermissionTo($permissions);
 }

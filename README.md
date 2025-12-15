@@ -37,7 +37,7 @@ This Starter kit contains my starting point when developing a new Laravel projec
 - ✅ **[Traefik](https://doc.traefik.io/traefik/)** as reverse proxy to serve your application locally and in production,
 - ✅ **[Laravel Octane](https://laravel.com/docs/12.x/octane)** with FrankenPHP to supercharges your application's performance,
 - ✅ **[Spatie Roles & Permission](https://filamentphp.com/plugins/bezhansalleh-shield)** with Filament Shield,
-- ✅ Updated for Laravel 12.*, Filament 4.1 **and** Livewire 3.6
+- ✅ Updated for Laravel 12.*, Filament 4.3 **and** Livewire 3.6
 
 ## Getting Started
 
@@ -74,6 +74,7 @@ Once your containers are running, initialize the application database and create
 ```
 
 This command will:
+- Setup `APP_DOMAIN`, `APP_URL` and `ASSET_URL` variables
 - Run database migrations
 - Generate roles and permissions (via Filament Shield)
 - Create the storage symbolic link
@@ -82,7 +83,7 @@ This command will:
 You can also run it non-interactively by providing all options:
 
 ```bash
-./vendor/bin/sail artisan app:setup \
+./vendor/bin/sail artisan app:setup laravel.local \
   --admin-firstname="John" \
   --admin-lastname="Doe" \
   --admin-username="john.doe" \
@@ -118,14 +119,6 @@ Replace `your-domain.local` with your actual `APP_DOMAIN` value.
 **Common Errors**
 - "Disk named 'media' cannot be accessed": Bucket doesn't exist, run the configuration above.
 - 403 Forbidden on image URLs: Bucket is not public, apply the public policy above.
-
-### Optional: Dokploy Deployment
-
-If you're using [Dokploy](https://dokploy.com) like me to deploy Docker-based apps, I've got you covered. Copy `docker-compose.prod.yml.example` to `docker-compose.prod.yml` and customize it—it's already configured with Dokploy's network setup.
-
-```bash
-cp docker-compose.prod.yml.example docker-compose.prod.yml
-```
 
 ### Optional: Browser Testing Setup
 
