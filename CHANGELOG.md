@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.4 - 2025-12-18
+
+### What's Changed
+
+* feat: add filament untitledui icons by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/24
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/compare/v1.1.3...v1.1.4
+
 ## v1.1.3 - 2025-12-15
 
 ### What's Changed
