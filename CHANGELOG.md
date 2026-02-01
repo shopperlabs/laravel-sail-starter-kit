@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.2 - 2026-02-01
+
+### What's Changed
+
+* build(deps): bump the php-dependencies group with 4 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/25
+* build(deps): bump the php-dependencies group with 3 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/26
+* build(deps-dev): bump the js-dependencies group with 2 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/27
+* build(deps): bump the php-dependencies group with 7 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/28
+* build(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/29
+* build(deps-dev): bump prettier from 3.7.4 to 3.8.0 in the js-dependencies group by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/30
+* build(deps): bump the php-dependencies group with 4 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/31
+* build(deps-dev): bump the js-dependencies group with 2 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/32
+* build(deps): bump the php-dependencies group with 4 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/33
+* build(deps-dev): bump the js-dependencies group with 3 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/34
+* build(deps): bump the php-dependencies group with 5 updates by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/35
+* build(deps-dev): bump barryvdh/laravel-debugbar from 3.16.3 to 4.0.5 by @dependabot[bot] in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/37
+* feat: upgrade to filament v5 and livewire 4 by @mckenziearts in https://github.com/shopperlabs/laravel-sail-starter-kit/pull/38
+
+**Full Changelog**: https://github.com/shopperlabs/laravel-sail-starter-kit/compare/v1.1.4...v1.2
+
 ## v1.1.4 - 2025-12-18
 
 ### What's Changed
