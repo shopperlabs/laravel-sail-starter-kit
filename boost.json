@@ -1,20 +1,19 @@
 {
-    "agents": [
-        "claude_code",
-        "copilot",
-        "cursor",
-        "opencode",
-        "phpstorm"
-    ],
-    "editors": [
-        "claude_code",
-        "cursor",
-        "opencode",
-        "phpstorm",
-        "vscode"
-    ],
-    "guidelines": [
-        "filament/filament"
-    ],
-    "sail": true
+  "agents": [
+    "claude_code",
+    "copilot",
+    "cursor",
+    "opencode"
+  ],
+  "guidelines": true,
+  "herd_mcp": false,
+  "mcp": true,
+  "packages": [
+    "filament/filament"
+  ],
+  "sail": false,
+  "skills": [
+    "pest-testing",
+    "tailwindcss-development"
+  ]
 }
