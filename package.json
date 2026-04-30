@@ -18,7 +18,7 @@
     "playwright": "^1.58.1",
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "^0.7.2",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.1.18",
     "vite": "^7.3.1"
   }
