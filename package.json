@@ -11,7 +11,7 @@
   "devDependencies": {
     "@playwright/test": "^1.58.1",
     "@tailwindcss/vite": "^4.1.18",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.4",
     "dotenv": "^17.2.3",
     "laravel-vite-plugin": "^2.1.0",
     "npm-check-updates": "^19.3.2",
