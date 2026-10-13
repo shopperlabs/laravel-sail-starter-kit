@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 👀 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🪄 Setup PHP
         uses: ./.github/actions/setup
       - name: Setup Node
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 👀 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🪄 Setup PHP
         uses: ./.github/actions/setup
       - name: 🔮 Install Composer Dependencies
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 👀 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🪄 Setup PHP
         uses: ./.github/actions/setup
         env:
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: 👀 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🪄 Setup
         uses: ./.github/actions/setup
       - name: 🕵️‍♂️ Run Composer Validate
